@@ -33,7 +33,8 @@ elseif ionization == 2
 else
     error('Select ionization positive or negative (1 or 2)')
 end
-emp_sig = input('If the signals of some MCR component have low intensity, do you want to use the normalized signals? 1/0 (yes/no): ');
+% emp_sig = input('If the signals of some MCR component have low intensity, do you want to use the normalized signals? 1/0 (yes/no): ');
+emp_sig = 1;
 
 precursor = [db.PRECURSORMZ];
 precursor_round = round(precursor,1);
