@@ -11,5 +11,5 @@ query = results_identif(component).RESULTS.MCR_MS2;
 candid = results_identif(component).RESULTS(signal).IDENTIFICATIONS(metabolite).MS2;
 candid(:,2) = -1*candid(:,2);
 
-[nouX1,XF,nouY1,YF] = mirror_plot_ci(query,candid,'n');
+mirror_plot_ci(query,candid);
 end

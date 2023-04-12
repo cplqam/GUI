@@ -55,6 +55,9 @@ for n = 1:r
         end
         final_db = new_db(final_pos);
         final_db = intensity_normalization_spect(final_db);
+        for s = 1:size(final_db,1)
+            final_db(s).Precursor_ppm = ppm_results(s);
+        end
         
         results_compounds{i_q,1} = ion;
         results_compounds{i_q,2} = intensity;      

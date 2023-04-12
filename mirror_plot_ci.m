@@ -1,4 +1,4 @@
-function [nouX1,XF,nouY1,YF]=mirror_plot_ci(X,Y,norm);
+function mirror_plot_ci(X,Y);
 
 X1=X(:,1);
 X2=X(:,2);
@@ -40,14 +40,8 @@ end
 YF=YbinSum;
 % ***********************
 
-if norm=='y'
-    XFmax=max(XF);
-    YFmax=max(abs(YF));
-    XF=XF/XFmax*1000;
-    YF=YF/YFmax*1000;   
-    bar(nouX1,XF,8); hold on;
+bar(nouX1,XF,8); 
+hold on;
 bar(nouY1,YF,8)
-else
-    bar(nouX1,XF,8); hold on;
-bar(nouY1,YF,8)
+hold off
 end
