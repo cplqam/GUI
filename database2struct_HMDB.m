@@ -20,6 +20,13 @@ for f = 1:size(name_files,2)
         row = regexp(row,'[<>]','split');
         if row(2) == 'database-id'
             name{f,1} = row(3);
+            tf = ismissing(row(4));
+            if tf == 1
+                name{f,1} = row(3);
+            else
+                name{f,1} = strcat(row(3),'/', row(4));
+                name{f,1} = replace(name{f,1},'/', ' ');
+            end
         elseif row(2) == 'collision-energy-voltage'
             colision{f,1} = row(3);
         elseif row(2) == 'ionization-mode'
