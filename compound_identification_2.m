@@ -41,17 +41,13 @@ for n = 1:r
     tf2 = isempty(ms2);
     %Si hay valores
     if tf == 1
-        if emp_sig == 1
-            ms1 = mz1{n};
-            ms1 = ms1{4};
-        end
+        ms1 = mz1{n};
+        ms1 = ms1{4};
     end
 
     if tf2 == 1
-        if emp_sig == 1
-            ms2 = mz2{n};
-            ms2 = ms2{4};
-        end
+        ms2 = mz2{n};
+        ms2 = ms2{4};
     end
     position = find(ms1(:,2) >= thres_precursor*999);
     for i_q = 1:size(position,1)

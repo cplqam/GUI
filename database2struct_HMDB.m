@@ -5,6 +5,7 @@ name_files = {files(~[files.isdir]).name};
 name = {};
 colision = {};
 ionization = {};
+inch = {};
 adduct = {};
 adduct_type = {};
 precursor = {};
@@ -25,7 +26,7 @@ for f = 1:size(name_files,2)
         elseif row(2) == 'ionization-mode'
             ionization{f,1} = row(3);
         elseif row(2) == 'adduct'
-            adduct{f,1} = row{3};
+            adduct{f,1} = convertCharsToStrings(row{3});
         elseif row(2) == 'adduct-type'
             adduct_type{f,1} = row(3);
         elseif row(2) == 'adduct-mass'
@@ -39,7 +40,8 @@ for f = 1:size(name_files,2)
     end
     ms2_sp = unique(ms2_sp,"rows");
     ms2{f,1} = ms2_sp;
-
+    
+    inch{f,1} = convertCharsToStrings("NaN");
     if mod(f,1000) == 0
         f
     end
@@ -57,8 +59,9 @@ end
 if size(colision,1) < max_size
     colision{max_size,1} = [];
 end
+% inch = cellstr(repmat('-',size(precursor,1),1));
 
-database = struct('HMDB_code', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'ADDUCT_type', adduct_type, 'COLISION_ENERGY', colision, 'IONIZATION', ionization, 'MS2', ms2);
+database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'ADDUCT_type', adduct_type, 'COLISION_ENERGY', colision, 'INCHIKEY', inch, 'IONIZATION', ionization, 'MS2', ms2);
 empty_mz = find(arrayfun(@(x) isempty(x.('PRECURSORMZ')), database));
 database(empty_mz) = [];
 end

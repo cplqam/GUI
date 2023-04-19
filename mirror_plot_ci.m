@@ -9,7 +9,11 @@ Y2=Y(:,2);
 % X BINNING
 % ***************************************
 % binning
-nouX1=[min(X1)-1:0.1:max(X1)+1];
+if size(X1,1) == 1
+    nouX1=[min(X1)-50:0.1:max(X1)+50];
+else
+    nouX1=[min(X1)-1:0.1:max(X1)+1];
+end
 XbinEdges = nouX1;
 [Xh,XwhichBin] = histc(X1, XbinEdges);
 
@@ -27,7 +31,11 @@ XF=XbinSum;
 % Y BINNING
 % ***************************************
 % binning
-nouY1=[min(Y1)-1:0.1:max(Y1)+1];
+if size(Y1,1) == 0
+    nouY1=[min(Y1)-50:0.1:max(Y1)+50];
+else
+    nouY1=[min(Y1)-1:0.1:max(Y1)+1];
+end
 YbinEdges = nouY1;
 [Yh,YwhichBin] = histc(Y1, YbinEdges);
 
