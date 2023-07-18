@@ -2,7 +2,7 @@ function database = database2struct_MB_RIKEN(file)
 %This function converts the database downloaded from MS-DIAL to struct
 %INPUT
 %file: the database imported as sting array, with tab and space as
-%delimiters and selecting only the 3 first columns
+%delimiters and selecting only the 4 first columns
 
 [r,c] = size(file);
 name = {};
