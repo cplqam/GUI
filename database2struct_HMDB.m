@@ -1,4 +1,7 @@
 function database = database2struct_HMDB(path)
+%This function converts the database downloaded from massbank to struct
+%INPUT
+%file: the folder downloaded from HMDB website and decompressed
 
 files = dir(path);
 name_files = {files(~[files.isdir]).name};
@@ -24,7 +27,7 @@ for f = 1:size(name_files,2)
         elseif row(2) == 'collision-energy-voltage'
             colision{f,1} = row(3);
         elseif row(2) == 'ionization-mode'
-            ionization{f,1} = row(3);
+            ionization{f,1} = lower(row(3));
         elseif row(2) == 'adduct'
             adduct{f,1} = convertCharsToStrings(row{3});
         elseif row(2) == 'adduct-type'

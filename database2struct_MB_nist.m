@@ -1,8 +1,8 @@
 function database = database2struct_MB_nist(file)
-%This function converts the database downloaded from MS-DIAL to struct
+%This function converts the database downloaded from massbank to struct
 %INPUT
 %file: the database imported as sting array, with tab and space as
-%delimiters and selecting only the 3 first columns
+%delimiters and selecting only the 4 first columns
 
 [r,c] = size(file);
 name = {};
@@ -20,11 +20,11 @@ n_comp = 1;
 for n = 1:r
     row = file(n,:);
     if row(1) == 'Name:'
-        tf = ismissing(row(4));
+        tf = ismissing(row(3));
         if tf == 1
-            name{n_comp,1} = row(3);
+            name{n_comp,1} = row(2);
         else
-            name{n_comp,1} = strcat(row(3),'/', row(4));
+            name{n_comp,1} = strcat(row(2),'/', row(3));
             name{n_comp,1} = replace(name{n_comp,1},'/', ' ');
         end
     elseif row(1) == 'PrecursorMZ:'
@@ -32,7 +32,7 @@ for n = 1:r
     elseif row(1) == 'Precursor_type:'
         adduct{n_comp,1} = row(2);
     elseif row(1) == 'Ion_mode:'
-        ionization{n_comp,1} = row(2);
+        ionization{n_comp,1} = lower(row(2));
     elseif row(1) == 'ExactMass:'
         rt{n_comp,1} = str2num(row(2));
     elseif row(1) == 'Formula:'
@@ -69,5 +69,5 @@ for n = 1:r
         end 
     end   
 end
-database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONMODE', ionization, 'EXACTMASS', rt, 'FORMULA', formula, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'MS2', ms2); 
+database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONIZATION', ionization, 'EXACTMASS', rt, 'FORMULA', formula, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'MS2', ms2); 
 end

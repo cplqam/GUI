@@ -31,7 +31,7 @@ for n = 1:r
     ms1 = mz1{n};
     ms1 = ms1{1};
     %Si hay valores
-    position = find(ms1(:,2) >= thres_precursor*0.999);
+    position = find(ms1(:,2) >= thres_precursor*1000);
     for i_q = 1:size(position,1)
         pos = position(i_q);
         

@@ -1,5 +1,5 @@
 function database = database2struct_MB_RIKEN(file)
-%This function converts the database downloaded from MS-DIAL to struct
+%This function converts the database downloaded from massbank to struct
 %INPUT
 %file: the database imported as sting array, with tab and space as
 %delimiters and selecting only the 4 first columns
@@ -33,7 +33,7 @@ for n = 1:r
     elseif row(1) == 'ADDUCTIONNAME:'
         adduct{n_comp,1} = row(2);
     elseif row(1) == 'IONMODE:'
-        ionization{n_comp,1} = row(2);
+        ionization{n_comp,1} = lower(row(2));
     elseif row(1) == 'RETENTIONTIME:'
         rt{n_comp,1} = str2num(row(2));
     elseif row(1) == 'FORMULA:'
@@ -63,7 +63,7 @@ for n = 1:r
         n_comp = n_comp + 1;
     end   
 end
-database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONMODE', ionization, 'RETENTIONTIME', rt, 'FORMULA', formula, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'MS2', ms2); 
+database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONIZATION', ionization, 'RETENTIONTIME', rt, 'FORMULA', formula, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'MS2', ms2); 
 empty_mz = find(arrayfun(@(x) isempty(x.('PRECURSORMZ')), database));
 database(empty_mz) = [];
 end

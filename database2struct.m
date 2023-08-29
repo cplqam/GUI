@@ -36,7 +36,7 @@ for n = 1:r
     elseif row(1) == 'PRECURSORTYPE:'
         adduct{n_comp,1} = row(2);
     elseif row(1) == 'IONMODE:'
-        ionization{n_comp,1} = row(2);
+        ionization{n_comp,1} = lower(row(2));
     elseif row(1) == 'RETENTIONTIME:'
         rt{n_comp,1} = str2num(row(2));
     elseif row(1) == 'CCS:'
@@ -71,5 +71,5 @@ for n = 1:r
         n
     end
 end
-database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONMODE', ionization, 'RETENTIONTIME', rt, 'CCS', css, 'FORMULA', formula, 'ONTOLOGY', ontology, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'COLLISIONENERGY', colision, 'ORIGIN', origin, 'MS2', ms2); 
+database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'IONIZATION', ionization, 'RETENTIONTIME', rt, 'CCS', css, 'FORMULA', formula, 'ONTOLOGY', ontology, 'SMILES', smiles, 'INCHIKEY', inchi, 'INSTRUMENTTYPE', instrument, 'COLLISIONENERGY', colision, 'ORIGIN', origin, 'MS2', ms2); 
 end

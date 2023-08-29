@@ -30,7 +30,7 @@ for n = 1:row
     for p = 1:col
         value = sopt(n,p);
         if value >= thres
-            norm = value/max(sopt(n,:))*999;
+            norm = value/max(sopt(n,:))*1000;
             arr = [mz_tot(p),value,p];
             s_ms1 = [s_ms1;arr];
         end

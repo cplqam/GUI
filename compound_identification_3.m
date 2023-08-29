@@ -1,4 +1,4 @@
-function compounds = compound_identification_3(db, mz, ppm, thres, ionization, thres_precursor)
+function compounds = compound_identification_3(db, mz, ppm, ppm_ms2, thres, ionization, thres_precursor)
 %This function provides a chemical compound identification from ROIMCR
 %results. Auxiliar functions: 'intensity_normalization.m',
 %'ppm_calculation_ident.m', 'score_calculation.m' and spectra_matching.m
@@ -63,12 +63,12 @@ for n = 1:r
             ms2 = ms2{4};
         end
     end
-    position = find(ms1(:,2) >= thres_precursor*999);
+    position = find(ms1(:,2) >= thres_precursor*1000);
     for i_q = 1:size(position,1)
         pos = position(i_q);
         try
             ion = ms1(pos,1);
-            intensity = ms1(pos,2)/999;
+            intensity = ms1(pos,2)/1000;
             ion_round = round(ion,1);
 
             reduced_precursor = find(precursor_round == ion_round);
@@ -96,7 +96,7 @@ for n = 1:r
                 for c = 1:size(final_db,1)
                     candidate = final_db(c);
                     ms2_c = candidate.MS2;
-                    [s, d, rho,pv] = score_calculation_spect(ms2_c, ms2,ppm);
+                    [s, d, rho,pv] = score_calculation_spect(ms2_c, ms2,ppm_ms2); % Estudiar esta función, algo falla
                     scores = [scores;s];
                     dif = [dif;d];
                     correlation = [correlation; rho];
