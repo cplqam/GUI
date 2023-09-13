@@ -31,7 +31,7 @@ precursor_round = round(precursor,1);
 
 r = size(mz1,1);
 for n = 1:r
-    display(['Identifying MCR component nº ',num2str(n)]);
+    display(['Identifying spectrum nº ',num2str(n)]);
     results_compounds = {};
     ms1 = mz1{n};
     ms1 = ms1{2};

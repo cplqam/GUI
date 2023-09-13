@@ -1,4 +1,4 @@
-function database = database2struct(file)
+function database = database2struct_MSDIAL(file)
 %This function converts the database downloaded from MS-DIAL to struct
 %INPUT
 %file: the database imported as sting array, with tab and space as

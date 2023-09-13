@@ -1,10 +1,5 @@
-function database = database2struct_HMDB(path)
-%This function converts the database downloaded from massbank to struct
-%INPUT
-%file: the folder downloaded from HMDB website and decompressed
-
-files = dir(path);
-name_files = {files(~[files.isdir]).name};
+function database = database2struct_HMDB(file)
+%import as string. Delimiters > and <. Columns 2:3
 name = {};
 colision = {};
 ionization = {};
@@ -14,39 +9,39 @@ adduct_type = {};
 precursor = {};
 ms2 = {};
 
-for f = 1:size(name_files,2)
-    filename = strcat(path,'\',name_files{f});
-    data = readlines(filename);
-    ms2_sp = [];
-    s = 1;
-    for n = 1:(size(data,1)-1)
-        row = data(n);
-        row = regexp(row,'[<>]','split');
-        if row(2) == 'database-id'
-            name{f,1} = row(3);
-        elseif row(2) == 'collision-energy-voltage'
-            colision{f,1} = row(3);
-        elseif row(2) == 'ionization-mode'
-            ionization{f,1} = lower(row(3));
-        elseif row(2) == 'adduct'
-            adduct{f,1} = convertCharsToStrings(row{3});
-        elseif row(2) == 'adduct-type'
-            adduct_type{f,1} = row(3);
-        elseif row(2) == 'adduct-mass'
-            precursor{f,1} = str2num(row(3));
-        elseif row(2) == 'mass-charge'
-            ms2_sp(s,1) = str2num(row(3));
-        elseif row(2) == 'intensity'
-            ms2_sp(s,2) = str2num(row(3));
-            s = s+1;
-        end
+s = 1;
+ms2_s = [];
+ms2_i = [];
+for n = 1:size(file,1)
+    row = file(n,:);
+    if row(1) == 'database-id'
+        name{s,1} = row(2);
+    elseif row(1) == 'collision-energy-voltage'
+        colision{s,1} = row(2);
+    elseif row(1) == 'ionization-mode'
+        ionization{s,1} = row(2);
+    elseif row(1) == 'adduct'
+        adduct{s,1} = convertCharsToStrings(row{2});
+    elseif row(1) == 'adduct-type'
+        adduct_type{s,1} = row(2);
+    elseif (row(1) == 'adduct-mass') & (row(2) ~= '-1.0')
+        precursor{s,1} = str2num(row(2));
+    elseif row(1) == 'mass-charge'
+        ms2_s = [ms2_s; str2num(row(2))];
+    elseif row(1) == 'intensity'
+        ms2_i = [ms2_i; str2num(row(2))];
+    elseif row(1) == '/ms-ms-peaks'
+        ms2_sp = [ms2_s,ms2_i];
+        ms2_sp = unique(ms2_sp,"rows");
+        ms2{s,1} = ms2_sp;
+        inch{s,1} = convertCharsToStrings("NaN");
+        s = s+1;
+        ms2_s = [];
+        ms2_i = [];
     end
-    ms2_sp = unique(ms2_sp,"rows");
-    ms2{f,1} = ms2_sp;
     
-    inch{f,1} = convertCharsToStrings("NaN");
-    if mod(f,1000) == 0
-        f
+    if mod(n,100000) == 0
+        progress = strcat(num2str(n/size(file,1)*100), '%')                             
     end
 end
 max_size = size(name,1);

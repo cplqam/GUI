@@ -1,4 +1,4 @@
-function database = database2struct_MB_RIKEN(file)
+function database = database2struct_MB(file)
 %This function converts the database downloaded from massbank to struct
 %INPUT
 %file: the database imported as sting array, with tab and space as
