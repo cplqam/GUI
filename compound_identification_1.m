@@ -31,7 +31,7 @@ for n = 1:r
     ms1 = mz1{n};
     ms1 = ms1{1};
     %Si hay valores
-    position = find(ms1(:,2) >= thres_precursor*1000);
+    position = find(ms1(:,2) >= thres_precursor);
     for i_q = 1:size(position,1)
         pos = position(i_q);
         
@@ -64,14 +64,15 @@ for n = 1:r
         results_compounds{i_q,3} = final_db;
     end
     results_compounds = struct('MCR_PRECURSOR_ION', results_compounds(:,1), 'INTENSITY_PREC_ION', results_compounds(:,2), ...
-        'IDENTIFICATIONS', results_compounds(:,3));
+       'IDENTIFICATIONS', results_compounds(:,3));
     for j = size(results_compounds,1):-1:1
-        if isempty(results_compounds(j).MCR_PRECURSOR_ION)
+         if isempty(results_compounds(j).MCR_PRECURSOR_ION)
             results_compounds(j) = [];
-        end
+         end
     end
     compounds{n,1} = n;
     compounds{n,2} = results_compounds;
+
 end
 compounds = struct('MCR_COMPONENT_NUMBER',compounds(:,1), 'RESULTS',compounds(:,2)); 
 end
