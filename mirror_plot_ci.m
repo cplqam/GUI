@@ -1,4 +1,4 @@
-function mirror_plot_ci(X,Y);
+function mirror_plot_ci(X,Y,name_cand);
 
 X1=X(:,1);
 X2=X(:,2);
@@ -53,4 +53,7 @@ bar(nouX1,XF,8);
 hold on;
 bar(nouY1,YF,8)
 hold off
+
+legend('Resolved spectra', name_cand);
+
 end

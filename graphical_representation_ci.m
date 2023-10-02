@@ -9,7 +9,8 @@ function graphical_representation(results_identif, component, signal, metabolite
 
 query = results_identif(component).RESULTS.MCR_MS2;
 candid = results_identif(component).RESULTS(signal).IDENTIFICATIONS(metabolite).MS2;
+name_comp = results_identif(component).RESULTS(signal).IDENTIFICATIONS(metabolite).NAME; 
 candid(:,2) = -1*candid(:,2);
 
-mirror_plot_ci(query,candid);
+mirror_plot_ci(query,candid, name_comp);
 end
