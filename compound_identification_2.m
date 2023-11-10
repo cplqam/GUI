@@ -111,7 +111,7 @@ for n = 1:r
         end
         
         results_compounds{i_q,1} = ion;
-        results_compounds{i_q,2} = intensity;
+        results_compounds{i_q,2} = intensity; 
         try
             results_compounds{i_q,3} = ms2(:,1:2);
         catch
@@ -119,8 +119,15 @@ for n = 1:r
         end
         results_compounds{i_q,4} = final_db;
     end
-    results_compounds = struct('MCR_PRECURSOR_ION', results_compounds(:,1), 'INTENSITY_PREC_ION', results_compounds(:,2), ...
-        'MCR_MS2',  results_compounds(:,3),'IDENTIFICATIONS', results_compounds(:,4));
+
+    try %Added to avoid errors with MS-DIAL spectra transformed and MS-DIAL db
+        results_compounds = struct('MCR_PRECURSOR_ION', results_compounds(:,1), 'INTENSITY_PREC_ION', results_compounds(:,2), ...
+            'MCR_MS2',  results_compounds(:,3),'IDENTIFICATIONS', results_compounds(:,4));
+    catch
+        results_compounds = struct('MCR_PRECURSOR_ION', ion, 'INTENSITY_PREC_ION', intensity, ...
+            'MCR_MS2',  ms2,'IDENTIFICATIONS', struct([]));
+    end
+
     for j = size(results_compounds,1):-1:1
         if isempty(results_compounds(j).MCR_PRECURSOR_ION)
             results_compounds(j) = [];

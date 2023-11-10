@@ -44,19 +44,20 @@ for n = 1:size(file,1)
         progress = strcat(num2str(n/size(file,1)*100), '%')                             
     end
 end
-max_size = size(name,1);
-if size(precursor,1) < max_size
-    precursor{max_size,1} = [];
-end
-if size(adduct,1) < max_size
-    adduct{max_size,1} = [];
-end
-if size(adduct_type,1) < max_size
-    adduct_type{max_size,1} = [];
-end
-if size(colision,1) < max_size
-    colision{max_size,1} = [];
-end
+
+% max_size = size(name,1);
+% if size(precursor,1) < max_size
+%     precursor{max_size,1} = [];
+% end
+% if size(adduct,1) < max_size
+%     adduct{max_size,1} = [];
+% end
+% if size(adduct_type,1) < max_size
+%     adduct_type{max_size,1} = [];
+% end
+% if size(colision,1) < max_size
+%     colision{max_size,1} = [];
+% end
 % inch = cellstr(repmat('-',size(precursor,1),1));
 
 database = struct('NAME', name, 'PRECURSORMZ', precursor, 'PRECURSORTYPE', adduct, 'ADDUCT_type', adduct_type, 'COLISION_ENERGY', colision, 'INCHIKEY', inch, 'IONIZATION', ionization, 'MS2', ms2);
