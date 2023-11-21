@@ -42,7 +42,7 @@ for n = 1:r
 
     elseif row(1) == 'PRECURSORMZ:'
         precursor{n_comp,1} = str2num(row(2));
-    elseif row(1) == 'ADDUCTIONNAME:'
+    elseif row(1) == 'PRECURSORTYPE:'
         adduct{n_comp,1} = row(2);
     elseif row(1) == 'IONMODE:'
         ionization{n_comp,1} = lower(row(2));
