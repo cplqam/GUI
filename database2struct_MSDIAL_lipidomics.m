@@ -20,11 +20,11 @@ n_comp = 1;
 for n = 1:r
     row = file(n,:);
     if row(1) == 'NAME:'
-            name{n_comp,1} = row(3);
-        else
-            name{n_comp,1} = strcat(row(3),'/', row(4));
-            name{n_comp,1} = replace(name{n_comp,1},'/', ' ');
-        end
+            name{n_comp,1} = strcat(row(2),row(3));
+%         else
+%             name{n_comp,1} = strcat(row(3),'/', row(4));
+%             name{n_comp,1} = replace(name{n_comp,1},'/', ' ');
+%         end
     elseif row(1) == 'PRECURSORMZ:'
         precursor{n_comp,1} = str2num(row(2));
     elseif row(1) == 'PRECURSORTYPE:'
@@ -53,6 +53,7 @@ for n = 1:r
         ms2{n_comp,1} = spect;
         n_comp = n_comp + 1;
     end
+
     if mod(n,100000) == 0
         n
     end

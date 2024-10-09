@@ -1,10 +1,11 @@
-function MSDIAL2mgf(msdial, name)
+function MSDIAL2mgf(msdial, c_ms2, name)
 %This function transform the spectral format of the results of MSDIAL to
 %mgf format. The user has to export the results as txt from MSDIAL,
 %transform to Excel and import to MATLAB as string matrix
 
 %INPUT
 %msdial: imported results from MSDIAL
+%c_ms2: number of column in which imported file has the ms2 spectra
 %name: name of the mgf output file. By default: "msdial_results.mgf"
 
 if nargin < 3
@@ -23,9 +24,13 @@ for n = 1:rows
     mz = feat(3);
     rt = str2double(feat(2))*60;
     ion = feat(5);
-    ms2 = feat(35);
+    ms2 = feat(c_ms2);
     ms2 = split(ms2,' ');
-    ms2 = split(ms2, ':');
+    if size(ms2,1) > 1
+        ms2 = split(ms2, ':');
+    elseif size(ms2,1) == 1
+        ms2 = transpose(split(ms2, ':'));
+    end
     max_int = max(str2double(ms2(:,2)));
     for i = 1:size(ms2,1)
         ms2(i,2) = str2double(ms2(i,2))/max_int;
