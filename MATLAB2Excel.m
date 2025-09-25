@@ -1,6 +1,5 @@
 function MATLAB2Excel(identif)
-%Identif: la variable compounds antes de realizar el "results
-%visualization"
+%Identif: The "compounds" variable before "results visualization"
 
 [r_c,c_c] = size(identif);
 new_identifier = {};
