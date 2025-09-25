@@ -79,6 +79,8 @@ for n = 1:size(mgf,1)
         end
     end
 end
+st_1
+St_2
 st = [st_1,st_2];
 limit = size(mzroi_ms1, 2);
 end
